@@ -16,14 +16,14 @@ Here's the order of the activities performed in the script :
 6. 	Read the subject data and assign a column name to it.
 7.  Bind all the 3 data sets (data, activity and subject) to form the final data set we will be working on.
 
-
+Note: Test data has 561 columns and 2947
 
 ### Cleaning the Train data
-	Train data has a total of 561 columns and 7352 rows. Of these the columns with mean, and std are extracted and formed a separate data set.
+Train data has a total of 561 columns and 7352 rows. Of these the columns with mean, and std are extracted and formed a separate data set.
 	
-	### Merging train and test data
-	1.	Merge the two datasets (train and test) with rbind. The merged data set is called merged_test_data.
+### Merging train and test data
+1.	Merge the two datasets (train and test) with rbind. The merged data set is called merged_test_data.
 	
 	
-	### Create Tidy data
-	1. Use the merge data set to create the tidy data. The tidy data contains the mean of the each column grouped at the Subject and activity level. 
+### Create Tidy data
+1. Use the merge data set to create the tidy data. The tidy data contains the mean of the each column grouped at the Subject and activity level. 
