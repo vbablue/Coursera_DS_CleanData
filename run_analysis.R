@@ -1,17 +1,63 @@
 setwd("C:/UCIHARDataset/")
-getwd()
+
 #Reading Test Data
-c(getwd(), "/test/")
-test_data <- read.table("/test/X_test.txt")
-#Reading Train Data
-train_data <- read.table("C:/Users/svadlama/Box Sync/big_data/coursera/getdata-projectfiles-UCI HAR Dataset/UCI HAR Dataset/train/X_train.txt")
+test_data <- read.table("C:/UCIHARDataset/test/X_test.txt")
+subset_cols <- read.table("C:/UCIHARDataset/subset.txt")
+data_desc <- subset_cols[,2]
 
-#Testing number of rows in test data
-#nrow(test_data) #2947
-#nrow(train_data) #10299
+#subsetting the merged_test_data with the columns having mean and std.
+subset_test_data  <- test_data[,c(1:6, 41:46, 81:86, 121:126, 161:166, 201:202, 214:215, 227,228,240,241,253,254,266,267,268,269,270,271,345,346,347,348,349,350,424,425,426,427,428,429,503,504,516,517,529,530,542,543)]
+colnames(subset_test_data) <- data_desc
 
-#binding both the data sets
-merged_data <- rbind(test_data, train_data)
 
-#Total rows of 10299
-#nrow(merged_data) 
+#Reading the activity labels data and the description and merging
+y_test <- read.table("C:/UCIHARDataset/test/y_test.txt")
+colnames(y_test)  <- c("activity")
+
+
+#Reading and merging the activity description with the actual data.
+activity_labels <- read.table("C:/UCIHARDataset/activity_labels.txt")
+colnames(activity_labels) <- c("activity", "activity_description")
+y_test_activity_description <- merge(y_test, activity_labels, all.y_test=TRUE)
+
+#Reading the subject data and assigning a column_name to it 
+subject_test <- read.table("C:/UCIHARDataset/test/subject_test.txt")
+colnames(subject_test) <- c("Subject")
+
+#Merging the 3data sets -- subject, activity description and the test data
+merged_test_data <- cbind(subject_test, y_test_activity_description, subset_test_data)
+
+####Reading train Data
+train_data <- read.table("C:/UCIHARDataset/train/X_train.txt")
+subset_cols <- read.table("C:/UCIHARDataset/subset.txt")
+data_desc <- subset_cols[,2]
+nrow(train_data)
+
+#subsetting the merged_train_data with the columns having mean and std.
+subset_train_data  <- train_data[,c(1:6, 41:46, 81:86, 121:126, 161:166, 201:202, 214:215, 227,228,240,241,253,254,266,267,268,269,270,271,345,346,347,348,349,350,424,425,426,427,428,429,503,504,516,517,529,530,542,543)]
+colnames(subset_train_data) <- data_desc
+
+
+#Reading the activity labels data and the description and merging
+y_train <- read.table("C:/UCIHARDataset/train/y_train.txt")
+colnames(y_train)  <- c("activity")
+
+
+#Reading and merging the activity description with the actual data.
+activity_labels <- read.table("C:/UCIHARDataset/activity_labels.txt")
+colnames(activity_labels) <- c("activity", "activity_description")
+y_train_activity_description <- merge(y_train, activity_labels, all.y_train=TRUE)
+
+#Reading the subject data and assigning a column_name to it 
+subject_train <- read.table("C:/UCIHARDataset/train/subject_train.txt")
+colnames(subject_train) <- c("Subject")
+
+#Merging the 3data sets -- subject, activity description and the train data
+merged_train_data <- cbind(subject_train, y_train_activity_description, subset_train_data)
+nrow(merged_train_data)
+
+merged_data_all <- rbind(merged_test_data, merged_train_data)
+tidy_data <- 
+  average()
+  group_by (subject, activity)
+colnames(merged_data_all)
